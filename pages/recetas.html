@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3E6336">
+    <title>Recetas rápidas | FITIA Student Express</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .recipe-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        .recipe-image { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: var(--color-progress-bg); }
+        .recipe-modal { width: min(92vw, 520px); max-height: 90vh; overflow-y: auto; border: 0; border-radius: 16px; padding: 0; color: var(--color-text-main); }
+        .recipe-modal::backdrop { background: rgb(25 35 23 / 55%); }
+        .recipe-modal-content { padding: 1.25rem; }
+        .macro-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; margin: 1rem 0; }
+        .macro { padding: .85rem; border-radius: 10px; background: var(--color-background); }
+        .macro strong, .macro span { display: block; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .available-panel { padding: 1rem; margin: 0 0 1rem; }
+        .category-filters, .selected-ingredients { display: flex; flex-wrap: wrap; gap: .5rem; }
+        .category-filters { margin: .85rem 0; }
+        .category-filter, .selected-ingredient { border: 1px solid var(--color-border); border-radius: 999px; padding: .4rem .75rem; color: var(--color-text-muted); background: white; font-size: .8rem; font-weight: 650; }
+        .category-filter[aria-pressed="true"], .selected-ingredient { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-progress-bg); }
+        .ingredient-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+        .ingredient-option { display: flex; align-items: center; gap: .45rem; min-width: 0; padding: .6rem; border: 1px solid var(--color-border); border-radius: 10px; background: white; cursor: pointer; }
+        .ingredient-option.selected { border-color: var(--color-primary); background: var(--color-progress-bg); }
+        .ingredient-option input { width: 18px; height: 18px; margin-left: auto; accent-color: var(--color-primary); }
+        .ingredient-icon { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border-radius: 50%; background: var(--color-background); }
+        .ingredient-copy { min-width: 0; }
+        .ingredient-copy strong, .ingredient-copy small { display: block; overflow-wrap: anywhere; }
+        .ingredient-copy small { color: var(--color-text-muted); font-size: .68rem; }
+        .ingredient-footer { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-top: .9rem; }
+        .selected-ingredients { align-items: center; min-height: 34px; }
+        .ingredient-hint { margin: .7rem 0 0; color: var(--color-text-muted); font-size: .78rem; }
+        .preparation-title { margin: 1.25rem 0 .6rem; font-size: 1rem; }
+        .preparation-steps { display: grid; gap: .6rem; margin: 0 0 1rem; padding-left: 1.5rem; }
+        .preparation-steps li { padding-left: .2rem; }
+        @media (min-width: 768px) { .recipe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (min-width: 1100px) { .recipe-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+        @media (min-width: 480px) { .ingredient-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (min-width: 768px) { .available-panel { padding: 1.25rem; } .ingredient-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    </style>
+    <script src="../js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="FITIA Student Express, inicio"><span class="brand-mark">F</span> FITIA <span class="brand-express">STUDENT EXPRESS</span></a>
+        <nav class="desktop-nav" aria-label="Navegación principal">
+            <a href="../index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-6h6v6"/></svg><span>Inicio</span></a>
+            <a class="active" href="recetas.html" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Recetas</span></a>
+            <a href="progreso.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 16v-4h3v4M12 16V9h3v7M17 16V6h3v10"/></svg><span>Progreso</span></a>
+            <a href="compras.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 3h2l2.2 11.5a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21 7H5"/><circle cx="9" cy="20" r="1.25"/><circle cx="18" cy="20" r="1.25"/></svg><span>Compras</span></a>
+            <a href="cuenta.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg><span>Cuenta</span></a>
+        </nav>
+    </header>
+    <main class="page-shell">
+        <section class="page-heading">
+            <p class="eyebrow">MODO UNIVERSIDAD · RICO, RÁPIDO Y A TU ALCANCE</p>
+            <h1>¿Qué cocinamos hoy?</h1>
+            <p>Recetas sencillas, económicas y listas antes de que termine tu pausa.</p>
+        </section>
+        <section class="available-panel surface" aria-labelledby="available-title">
+            <div class="section-title-row">
+                <div><h2 id="available-title">Mis ingredientes disponibles</h2><p class="muted">Selecciona lo que tienes en casa o en el campus.</p></div>
+                <span id="selected-count" class="mode-badge" aria-live="polite">0 seleccionados</span>
+            </div>
+            <label class="search-field"><span aria-hidden="true">⌕</span><span class="sr-only">Buscar ingrediente disponible</span><input id="ingredient-search" type="search" placeholder="Buscar ingrediente..."></label>
+            <div id="ingredient-categories" class="category-filters" role="group" aria-label="Filtrar ingredientes por categoría">
+                <button class="category-filter" type="button" data-category="Todos" aria-pressed="true">Todos</button>
+                <button class="category-filter" type="button" data-category="Proteínas" aria-pressed="false">Proteínas</button>
+                <button class="category-filter" type="button" data-category="Cereales" aria-pressed="false">Cereales</button>
+                <button class="category-filter" type="button" data-category="Verduras" aria-pressed="false">Verduras</button>
+                <button class="category-filter" type="button" data-category="Frutas" aria-pressed="false">Frutas</button>
+                <button class="category-filter" type="button" data-category="Lácteos" aria-pressed="false">Lácteos</button>
+            </div>
+            <div id="ingredient-list" class="ingredient-grid" aria-live="polite"></div>
+            <div class="ingredient-footer">
+                <div id="selected-ingredients" class="selected-ingredients" aria-live="polite"></div>
+                <button id="clear-ingredients" class="button button-secondary" type="button" disabled>Limpiar selección</button>
+            </div>
+            <p class="ingredient-hint">Al elegir ingredientes, verás recetas que usan al menos uno de ellos. Sin selección, se muestran todas.</p>
+        </section>
+        <section class="filter-panel surface" aria-labelledby="filters-title">
+            <div class="section-title-row"><div><h2 id="filters-title">Encuentra tu próxima comida</h2><p class="muted">Ajusta los filtros y elige en segundos.</p></div><span class="mode-badge">Modo Universidad</span></div>
+            <label class="search-field"><span aria-hidden="true">⌕</span><span class="sr-only">Buscar recetas o ingredientes</span><input id="recipe-search" type="search" placeholder="Ej. huevo, avena, atún"></label>
+            <div class="filter-row">
+                <label class="filter-chip"><input id="quick-filter" type="checkbox" checked><span>Menor a 15 min</span></label>
+                <label class="filter-chip"><input id="home-measures" type="checkbox" checked><span>Medidas caseras</span></label>
+                <label class="filter-chip select-chip" for="sort-recipes">Ordenar:
+                    <select id="sort-recipes" aria-label="Ordenar recetas"><option value="recommended">Recomendadas</option><option value="cost">Menor costo</option><option value="time">Menor tiempo</option></select>
+                </label>
+            </div>
+        </section>
+        <section class="recipes-section" aria-labelledby="recipes-title">
+            <div class="section-title-row results-heading"><div><h2 id="recipes-title">Recetas para ti</h2><p id="results-count" class="muted" aria-live="polite"></p></div><span class="small-note">Todas con macros abiertos</span></div>
+            <div id="recipe-list" class="recipe-grid" aria-live="polite">
+                <article class="recipe-card surface" data-name="avena con plátano" data-ingredients="avena platano banana leche" data-steps="Calienta la leche en una olla pequeña.|Agrega la avena y cocina, removiendo, hasta que quede cremosa.|Sirve con el plátano en rodajas." data-time="10" data-cost="3.5" data-protein="12" data-carbs="48" data-fat="8" data-calories="310" data-satiety="Alta" data-taste="Dulce y cremoso" data-texture="Suave">
+                    <img class="recipe-image" src="../assets/avena-platano.png" alt="Tazón de avena con rodajas de plátano" loading="lazy">
+                    <div class="recipe-card-body"><div class="card-title-row"><h3>Avena con plátano</h3><span class="price">S/ 3.50</span></div><p class="muted">Desayuno · 10 min · Dificultad fácil</p><div class="sensory-tags"><span>Dulce y cremoso</span><span>Suave</span><span>Saciedad alta</span></div><p class="ingredients-preview" data-house="½ taza de avena · 1 plátano · 1 taza de leche" data-grams="40 g de avena · 1 plátano · 240 ml de leche">½ taza de avena · 1 plátano · 1 taza de leche</p><div class="recipe-actions"><button class="button button-secondary detail-button" type="button">Ver receta</button><button class="button button-primary add-recipe" type="button">＋ Agregar</button></div></div>
+                </article>
+                <article class="recipe-card surface" data-name="sándwich de huevo" data-ingredients="huevo huevos pan tomate" data-steps="Tuesta los panes en una sartén o tostadora.|Bate los huevos y cocínalos en una sartén hasta que estén firmes.|Arma el sándwich con el huevo y el tomate en rodajas." data-time="12" data-cost="4" data-protein="19" data-carbs="32" data-fat="14" data-calories="330" data-satiety="Alta" data-taste="Sabor intenso" data-texture="Crujiente">
+                    <img class="recipe-image" src="../assets/sandwich-huevo.png" alt="Sándwich de pan tostado con huevo revuelto y tomate" loading="lazy">
+                    <div class="recipe-card-body"><div class="card-title-row"><h3>Sándwich de huevo</h3><span class="price">S/ 4.00</span></div><p class="muted">Almuerzo · 12 min · Dificultad fácil</p><div class="sensory-tags"><span>Sabor intenso</span><span>Crujiente</span><span>Saciedad alta</span></div><p class="ingredients-preview" data-house="2 panes · 2 huevos · 1 tomate" data-grams="70 g de pan · 2 huevos · 120 g de tomate">2 panes · 2 huevos · 1 tomate</p><div class="recipe-actions"><button class="button button-secondary detail-button" type="button">Ver receta</button><button class="button button-primary add-recipe" type="button">＋ Agregar</button></div></div>
+                </article>
+                <article class="recipe-card surface" data-name="arroz con atún" data-ingredients="arroz atun tomate cebolla" data-steps="Cocina el arroz hasta que quede tierno.|Escurre el atún y corta el tomate en trozos pequeños.|Mezcla el arroz con el atún y el tomate; sazona al gusto." data-time="14" data-cost="6" data-protein="24" data-carbs="52" data-fat="9" data-calories="385" data-satiety="Alta" data-taste="Sabor intenso" data-texture="Esponjoso">
+                    <img class="recipe-image" src="../assets/arroz-atun.png" alt="Tazón de arroz con atún y tomate" loading="lazy">
+                    <div class="recipe-card-body"><div class="card-title-row"><h3>Arroz con atún</h3><span class="price">S/ 6.00</span></div><p class="muted">Almuerzo · 14 min · Dificultad fácil</p><div class="sensory-tags"><span>Sabor intenso</span><span>Esponjoso</span><span>Saciedad alta</span></div><p class="ingredients-preview" data-house="1 taza de arroz cocido · 1 lata de atún · ½ tomate" data-grams="150 g de arroz cocido · 120 g de atún · 60 g de tomate">1 taza de arroz cocido · 1 lata de atún · ½ tomate</p><div class="recipe-actions"><button class="button button-secondary detail-button" type="button">Ver receta</button><button class="button button-primary add-recipe" type="button">＋ Agregar</button></div></div>
+                </article>
+                <article class="recipe-card surface" data-name="ensalada de pollo" data-ingredients="pollo lechuga tomate zanahoria" data-steps="Cocina el pollo en una sartén hasta que esté bien cocido y córtalo en trozos.|Lava y corta la lechuga, el tomate y la zanahoria.|Mezcla los ingredientes y sirve." data-time="13" data-cost="7" data-protein="31" data-carbs="20" data-fat="11" data-calories="305" data-satiety="Alta" data-taste="Fresco y cítrico" data-texture="Crujiente">
+                    <img class="recipe-image" src="../assets/ensalada-pollo.png" alt="Ensalada de pollo con lechuga y tomate" loading="lazy">
+                    <div class="recipe-card-body"><div class="card-title-row"><h3>Ensalada de pollo</h3><span class="price">S/ 7.00</span></div><p class="muted">Almuerzo · 13 min · Dificultad fácil</p><div class="sensory-tags"><span>Fresco y cítrico</span><span>Crujiente</span><span>Saciedad alta</span></div><p class="ingredients-preview" data-house="1 filete de pollo · 2 tazas de lechuga · 1 tomate" data-grams="120 g de pollo · 60 g de lechuga · 120 g de tomate">1 filete de pollo · 2 tazas de lechuga · 1 tomate</p><div class="recipe-actions"><button class="button button-secondary detail-button" type="button">Ver receta</button><button class="button button-primary add-recipe" type="button">＋ Agregar</button></div></div>
+                </article>
+                <article class="recipe-card surface" data-name="tortilla de papa y huevo" data-ingredients="papa huevo huevos cebolla" data-steps="Pela y corta la papa en láminas finas; cocínala en una sartén hasta que esté tierna.|Bate los huevos, mézclalos con la papa y la cebolla picada.|Vierte la mezcla en la sartén y dórala por ambos lados hasta que el huevo esté cocido." data-time="18" data-cost="4.5" data-protein="16" data-carbs="36" data-fat="13" data-calories="330" data-satiety="Alta" data-taste="Casero y sabroso" data-texture="Dorada">
+                    <img class="recipe-image" src="../assets/tortilla-papa.png" alt="Tortilla de papa dorada, con una porción servida" loading="lazy">
+                    <div class="recipe-card-body"><div class="card-title-row"><h3>Tortilla de papa</h3><span class="price">S/ 4.50</span></div><p class="muted">Cena · 18 min · Dificultad fácil</p><div class="sensory-tags"><span>Casero y sabroso</span><span>Dorada</span><span>Saciedad alta</span></div><p class="ingredients-preview" data-house="1 papa mediana · 2 huevos · ¼ cebolla" data-grams="180 g de papa · 2 huevos · 40 g de cebolla">1 papa mediana · 2 huevos · ¼ cebolla</p><div class="recipe-actions"><button class="button button-secondary detail-button" type="button">Ver receta</button><button class="button button-primary add-recipe" type="button">＋ Agregar</button></div></div>
+                </article>
+            </div>
+            <p id="empty-recipes" class="empty-state surface" hidden>No encontramos recetas con esos filtros. Prueba quitando uno.</p>
+        </section>
+    </main>
+    <dialog id="nutrition-dialog" class="recipe-modal" aria-labelledby="dialog-title">
+        <div class="recipe-modal-content">
+            <div class="modal-header"><h2 id="dialog-title">Información nutricional</h2><button class="icon-button" id="close-dialog" type="button" aria-label="Cerrar información">✕</button></div>
+            <p id="dialog-description" class="muted"></p>
+            <div class="macro-grid">
+                <div class="macro"><strong id="macro-calories">—</strong><span>Calorías</span></div>
+                <div class="macro"><strong id="macro-protein">—</strong><span>Proteínas</span></div>
+                <div class="macro"><strong id="macro-carbs">—</strong><span>Carbohidratos</span></div>
+                <div class="macro"><strong id="macro-fat">—</strong><span>Grasas</span></div>
+            </div>
+            <h3 class="preparation-title">Preparación paso a paso</h3>
+            <ol id="dialog-steps" class="preparation-steps"></ol>
+            <p class="muted">Valores aproximados por porción. La información nutricional está disponible para todos.</p>
+            <button class="button button-primary button-full" id="dialog-add" type="button">Agregar a mi progreso</button>
+        </div>
+    </dialog>
+    <nav class="mobile-nav" aria-label="Navegación móvil">
+        <a href="../index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-6h6v6"/></svg><span>Inicio</span></a>
+        <a class="active" href="recetas.html" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Recetas</span></a>
+        <a href="progreso.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 16v-4h3v4M12 16V9h3v7M17 16V6h3v10"/></svg><span>Progreso</span></a>
+        <a href="compras.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 3h2l2.2 11.5a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21 7H5"/><circle cx="9" cy="20" r="1.25"/><circle cx="18" cy="20" r="1.25"/></svg><span>Compras</span></a>
+        <a href="cuenta.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg><span>Cuenta</span></a>
+    </nav>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3E6336">
+    <title>Lista de compras | FITIA Student Express</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="FITIA Student Express, inicio"><span class="brand-mark">F</span> FITIA <span class="brand-express">STUDENT EXPRESS</span></a>
+        <nav class="desktop-nav" aria-label="Navegación principal">
+            <a href="../index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-6h6v6"/></svg><span>Inicio</span></a>
+            <a href="recetas.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Recetas</span></a>
+            <a href="progreso.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 16v-4h3v4M12 16V9h3v7M17 16V6h3v10"/></svg><span>Progreso</span></a>
+            <a class="active" href="compras.html" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 3h2l2.2 11.5a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21 7H5"/><circle cx="9" cy="20" r="1.25"/><circle cx="18" cy="20" r="1.25"/></svg><span>Compras</span></a>
+            <a href="cuenta.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg><span>Cuenta</span></a>
+        </nav>
+    </header>
+    <main class="page-shell">
+        <section class="page-heading"><p class="eyebrow">PLANEA SIMPLE, GASTA CON INTENCIÓN</p><h1>Mi lista de compras</h1><p>Marca lo que ya tienes y conoce el costo estimado de lo que falta.</p></section>
+        <section class="budget-card surface" aria-label="Presupuesto de compras">
+            <div class="budget-editor">
+                <h2>Tu presupuesto de compra</h2>
+                <p class="muted">Define cuánto quieres gastar y revisa cómo cambia el total al elegir productos.</p>
+                <form id="shopping-budget-form" class="shopping-budget-form">
+                    <label for="shopping-budget">Presupuesto máximo (S/)</label>
+                    <input id="shopping-budget" type="number" min="0" step="0.10" inputmode="decimal" placeholder="Ej. 50.00">
+                    <button class="button button-secondary" type="submit">Guardar presupuesto</button>
+                </form>
+            </div>
+            <div class="shopping-budget-summary">
+                <h2>Resumen de compra</h2>
+                <div class="shopping-budget-totals">
+                    <div><span class="muted">Estimado por comprar</span><strong id="shopping-total">S/ 0.00</strong></div>
+                    <div><span class="muted">Presupuesto máximo</span><strong id="shopping-budget-value">Sin definir</strong></div>
+                </div>
+                <p id="shopping-count" class="muted">0 de 0 productos</p>
+                <p id="shopping-budget-status" class="shopping-budget-status muted" aria-live="polite">Define tu presupuesto para ver cuánto te queda.</p>
+            </div>
+        </section>
+        <div class="progress-track" style="margin:1rem 0 1.5rem" role="progressbar" aria-label="Productos comprados" aria-valuemin="0" aria-valuemax="100"><span id="shopping-progress" style="width:0%"></span></div>
+        <form id="add-item-form" class="add-item-form">
+            <label class="sr-only" for="new-item">Agregar producto a la lista</label>
+            <input id="new-item" type="text" maxlength="60" placeholder="Agregar un producto..." required>
+            <label class="sr-only" for="item-category">Categoría del producto</label>
+            <select id="item-category" aria-label="Categoría del producto">
+                <option value="Frutas y verduras">Frutas y verduras</option>
+                <option value="Proteínas">Proteínas</option>
+                <option value="Cereales">Cereales</option>
+                <option value="__custom__">＋ Crear categoría personalizada</option>
+            </select>
+            <label class="sr-only" for="custom-category">Nombre de la nueva categoría</label>
+            <input id="custom-category" type="text" maxlength="40" placeholder="Nombre de la categoría" hidden>
+            <label class="sr-only" for="new-item-cost">Costo estimado en soles, opcional</label>
+            <input id="new-item-cost" class="cost-input" type="number" min="0" step="0.10" inputmode="decimal" placeholder="S/ costo">
+            <button class="button button-primary" type="submit">＋ Agregar</button>
+        </form>
+        <section id="shopping-list" class="home-grid" aria-label="Productos por categoría"></section>
+    </main>
+    <footer class="footer">Los precios son estimados y pueden variar según tu mercado.</footer>
+    <nav class="mobile-nav" aria-label="Navegación móvil">
+        <a href="../index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-6h6v6"/></svg><span>Inicio</span></a>
+        <a href="recetas.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Recetas</span></a>
+        <a href="progreso.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 16v-4h3v4M12 16V9h3v7M17 16V6h3v10"/></svg><span>Progreso</span></a>
+        <a class="active" href="compras.html" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 3h2l2.2 11.5a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21 7H5"/><circle cx="9" cy="20" r="1.25"/><circle cx="18" cy="20" r="1.25"/></svg><span>Compras</span></a>
+        <a href="cuenta.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg><span>Cuenta</span></a>
+    </nav>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

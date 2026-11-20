@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3E6336">
+    <title>Mi progreso | FITIA Student Express</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html" aria-label="FITIA Student Express, inicio"><span class="brand-mark">F</span> FITIA <span class="brand-express">STUDENT EXPRESS</span></a>
+        <nav class="desktop-nav" aria-label="Navegación principal">
+            <a href="../index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-6h6v6"/></svg><span>Inicio</span></a>
+            <a href="recetas.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Recetas</span></a>
+            <a class="active" href="progreso.html" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 16v-4h3v4M12 16V9h3v7M17 16V6h3v10"/></svg><span>Progreso</span></a>
+            <a href="compras.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 3h2l2.2 11.5a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21 7H5"/><circle cx="9" cy="20" r="1.25"/><circle cx="18" cy="20" r="1.25"/></svg><span>Compras</span></a>
+            <a href="cuenta.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg><span>Cuenta</span></a>
+        </nav>
+    </header>
+    <main class="page-shell">
+        <section class="page-heading"><p class="eyebrow">PEQUEÑOS PASOS, BUENOS HÁBITOS</p><h1>Mi progreso</h1><p>Tu registro de hoy, a tu ritmo y sin información bloqueada.</p></section>
+        <section class="dashboard-grid">
+            <div>
+                <article class="panel surface">
+                    <div class="section-title-row"><div><h2>Resumen de hoy</h2><p><span id="total-calories">0 kcal</span> · <span id="meal-count">0 comidas</span> · <span id="total-cost">S/ 0.00</span></p></div><a class="text-link" href="recetas.html">＋ Registrar</a></div>
+                    <div class="macro-bars" style="margin-top:1.2rem">
+                        <div class="macro-line"><strong>Proteínas</strong><span id="protein-value">0 / 95 g</span><div class="progress-track" role="progressbar" aria-label="Proteínas consumidas" aria-valuemin="0" aria-valuemax="95"><span id="protein-bar" style="width:0%"></span></div></div>
+                        <div class="macro-line"><strong>Carbohidratos</strong><span id="carbs-value">0 / 250 g</span><div class="progress-track" role="progressbar" aria-label="Carbohidratos consumidos" aria-valuemin="0" aria-valuemax="250"><span id="carbs-bar" style="width:0%"></span></div></div>
+                        <div class="macro-line"><strong>Grasas</strong><span id="fat-value">0 / 60 g</span><div class="progress-track" role="progressbar" aria-label="Grasas consumidas" aria-valuemin="0" aria-valuemax="60"><span id="fat-bar" style="width:0%"></span></div></div>
+                    </div>
+                </article>
+                <section style="margin-top:1rem" aria-labelledby="meals-title"><div class="section-title-row" style="margin-bottom:.75rem"><div><h2 id="meals-title">Alimentos registrados</h2><p class="muted">Toca la × si quieres quitar un alimento.</p></div><a class="text-link" href="recetas.html">Agregar alimento</a></div><div id="meal-list" class="meal-list"></div><p id="empty-meals" class="empty-state surface">Aún no registras comidas. <a class="text-link" href="recetas.html">Elige una receta para empezar.</a></p></section>
+            </div>
+            <aside class="panel surface"><span class="feature-icon" aria-hidden="true">♡</span><h2>Información sin candados</h2><p>Calorías, proteínas, carbohidratos y grasas disponibles para cada receta. Los valores son aproximados y no sustituyen orientación profesional.</p><a class="text-link" href="recetas.html">Consultar recetas y macros →</a></aside>
+        </section>
+    </main>
+    <footer class="footer">FITIA Student Express · Tu información se guarda en este dispositivo.</footer>
+    <nav class="mobile-nav" aria-label="Navegación móvil">
+        <a href="../index.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-6h6v6"/></svg><span>Inicio</span></a>
+        <a href="recetas.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Recetas</span></a>
+        <a class="active" href="progreso.html" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 16v-4h3v4M12 16V9h3v7M17 16V6h3v10"/></svg><span>Progreso</span></a>
+        <a href="compras.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 3h2l2.2 11.5a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L21 7H5"/><circle cx="9" cy="20" r="1.25"/><circle cx="18" cy="20" r="1.25"/></svg><span>Compras</span></a>
+        <a href="cuenta.html"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg><span>Cuenta</span></a>
+    </nav>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
