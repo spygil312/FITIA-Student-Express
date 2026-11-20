@@ -18,7 +18,7 @@ A estudiantes universitarios que tienen poco tiempo para cocinar y necesitan cui
 
 ## Tecnologías
 
-El proyecto usa HTML5, CSS3 y JavaScript vanilla (ES6). No requiere instalación de dependencias ni un proceso de compilación.
+El proyecto usa HTML5, CSS3 y JavaScript. No requiere instalación de dependencias ni un proceso de compilación.
 
 ## Nota sobre las cuentas y los datos
 
