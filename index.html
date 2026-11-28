@@ -20,6 +20,10 @@
         </nav>
     </header>
     <main class="page-shell">
+        <aside class="module-guide surface" data-module-guide="inicio" hidden>
+            <div><strong>Empieza por lo simple</strong><p>Agrega una receta o escanea tu comida para llevar el registro del día.</p></div>
+            <button class="icon-button" type="button" data-dismiss-guide aria-label="Cerrar guía">×</button>
+        </aside>
         <section class="hero">
             <p class="eyebrow">TU VIDA DE CAMPUS, CON MÁS SABOR</p>
             <h1>Comer bien cabe en tu horario y en tu bolsillo.</h1>
@@ -29,7 +33,11 @@
         <section class="budget-card surface" aria-label="Resumen de hoy">
             <div><h2>Tu día, de un vistazo</h2><p class="muted">Lo que llevas registrado hoy.</p></div>
             <div><strong id="meal-count">0 comidas</strong><span id="total-calories" class="muted">0 kcal</span></div>
-            <div><strong id="total-cost">S/ 0.00</strong><span class="muted">gasto registrado</span></div>
+            <div><strong id="total-cost">S/ 0.00</strong><span class="muted">gasto en comidas y compras</span></div>
+        </section>
+        <section class="quick-meals panel surface" aria-labelledby="quick-meals-title">
+            <div class="section-title-row"><div><h2 id="quick-meals-title">Tus comidas rápidas</h2><p class="muted">Vuelve a registrar una favorita o reciente.</p></div><a class="text-link" href="pages/progreso.html">Editar registros</a></div>
+            <div id="quick-meals" class="quick-meal-list"></div>
         </section>
         <section class="home-grid" aria-label="Herramientas de FITIA">
             <article class="feature-card surface"><span class="feature-icon" aria-hidden="true">✦</span><h2>Recetas rápidas</h2><p>Platos económicos con filtros por tiempo, costo y medidas que ya conoces.</p><a class="text-link" href="pages/recetas.html">Explorar recetas →</a></article>
@@ -38,10 +46,10 @@
         </section>
         <section class="dashboard-grid">
             <article class="panel surface"><div class="section-title-row"><div><h2>Tu progreso nutricional</h2><p>Macros registrados hoy · datos siempre visibles</p></div><a class="text-link" href="pages/progreso.html">Ver todo</a></div>
-                <div class="macro-bars" style="margin-top:1rem">
-                    <div class="macro-line"><strong>Proteínas</strong><span id="protein-value">0 / 95 g</span><div class="progress-track"><span id="protein-bar" style="width:0%"></span></div></div>
-                    <div class="macro-line"><strong>Carbohidratos</strong><span id="carbs-value">0 / 250 g</span><div class="progress-track"><span id="carbs-bar" style="width:0%"></span></div></div>
-                    <div class="macro-line"><strong>Grasas</strong><span id="fat-value">0 / 60 g</span><div class="progress-track"><span id="fat-bar" style="width:0%"></span></div></div>
+                <div class="macro-bars spaced-top">
+                    <div class="macro-line"><strong>Proteínas</strong><span id="protein-value">0 / 95 g</span><div class="progress-track"><span id="protein-bar"></span></div></div>
+                    <div class="macro-line"><strong>Carbohidratos</strong><span id="carbs-value">0 / 250 g</span><div class="progress-track"><span id="carbs-bar"></span></div></div>
+                    <div class="macro-line"><strong>Grasas</strong><span id="fat-value">0 / 60 g</span><div class="progress-track"><span id="fat-bar"></span></div></div>
                 </div>
             </article>
             <aside class="panel surface"><h2>Una idea para hoy</h2><p>Un sándwich crujiente de huevo toma 12 minutos y cuesta cerca de S/ 4.</p><a class="text-link" href="pages/recetas.html">Ver receta →</a></aside>

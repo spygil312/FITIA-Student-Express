@@ -20,20 +20,27 @@
         </nav>
     </header>
     <main class="page-shell">
+        <aside class="module-guide surface" data-module-guide="progreso" hidden>
+            <div><strong>Tu registro, a tu ritmo</strong><p>Agrega comidas recientes o favoritas y ajusta porciones y datos cuando lo necesites.</p></div>
+            <button class="icon-button" type="button" data-dismiss-guide aria-label="Cerrar guía">×</button>
+        </aside>
         <section class="page-heading"><p class="eyebrow">PEQUEÑOS PASOS, BUENOS HÁBITOS</p><h1>Mi progreso</h1><p>Tu registro de hoy, a tu ritmo y sin información bloqueada.</p></section>
         <section class="dashboard-grid">
             <div>
                 <article class="panel surface">
-                    <div class="section-title-row"><div><h2>Resumen de hoy</h2><p><span id="total-calories">0 kcal</span> · <span id="meal-count">0 comidas</span> · <span id="total-cost">S/ 0.00</span></p></div><a class="text-link" href="recetas.html">＋ Registrar</a></div>
-                    <div class="macro-bars" style="margin-top:1.2rem">
-                        <div class="macro-line"><strong>Proteínas</strong><span id="protein-value">0 / 95 g</span><div class="progress-track" role="progressbar" aria-label="Proteínas consumidas" aria-valuemin="0" aria-valuemax="95"><span id="protein-bar" style="width:0%"></span></div></div>
-                        <div class="macro-line"><strong>Carbohidratos</strong><span id="carbs-value">0 / 250 g</span><div class="progress-track" role="progressbar" aria-label="Carbohidratos consumidos" aria-valuemin="0" aria-valuemax="250"><span id="carbs-bar" style="width:0%"></span></div></div>
-                        <div class="macro-line"><strong>Grasas</strong><span id="fat-value">0 / 60 g</span><div class="progress-track" role="progressbar" aria-label="Grasas consumidas" aria-valuemin="0" aria-valuemax="60"><span id="fat-bar" style="width:0%"></span></div></div>
+                    <div class="section-title-row"><div><h2>Resumen de hoy</h2><p><span id="total-calories">0 kcal</span> · <span id="meal-count">0 comidas</span> · <span class="sr-only">Gasto en comidas y compras: </span><span id="total-cost">S/ 0.00</span></p></div><a class="text-link" href="recetas.html">＋ Registrar</a></div>
+                    <div class="macro-bars spaced-top">
+                        <div class="macro-line"><strong>Proteínas</strong><span id="protein-value">0 / 95 g</span><div class="progress-track" role="progressbar" aria-label="Proteínas consumidas" aria-valuemin="0" aria-valuemax="95"><span id="protein-bar"></span></div></div>
+                        <div class="macro-line"><strong>Carbohidratos</strong><span id="carbs-value">0 / 250 g</span><div class="progress-track" role="progressbar" aria-label="Carbohidratos consumidos" aria-valuemin="0" aria-valuemax="250"><span id="carbs-bar"></span></div></div>
+                        <div class="macro-line"><strong>Grasas</strong><span id="fat-value">0 / 60 g</span><div class="progress-track" role="progressbar" aria-label="Grasas consumidas" aria-valuemin="0" aria-valuemax="60"><span id="fat-bar"></span></div></div>
                     </div>
                 </article>
-                <section style="margin-top:1rem" aria-labelledby="meals-title"><div class="section-title-row" style="margin-bottom:.75rem"><div><h2 id="meals-title">Alimentos registrados</h2><p class="muted">Toca la × si quieres quitar un alimento.</p></div><a class="text-link" href="recetas.html">Agregar alimento</a></div><div id="meal-list" class="meal-list"></div><p id="empty-meals" class="empty-state surface">Aún no registras comidas. <a class="text-link" href="recetas.html">Elige una receta para empezar.</a></p></section>
+                <section class="meal-section" aria-labelledby="meals-title"><div class="section-title-row meal-section-heading"><div><h2 id="meals-title">Alimentos registrados</h2><p class="muted">Edita el nombre, la porción, las calorías o el costo sin volver a crear la comida.</p></div><a class="text-link" href="recetas.html">Agregar alimento</a></div><div id="meal-list" class="meal-list"></div><p id="empty-meals" class="empty-state surface">Aún no registras comidas. <a class="text-link" href="recetas.html">Elige una receta para empezar.</a></p></section>
             </div>
-            <aside class="panel surface"><span class="feature-icon" aria-hidden="true">♡</span><h2>Información sin candados</h2><p>Calorías, proteínas, carbohidratos y grasas disponibles para cada receta. Los valores son aproximados y no sustituyen orientación profesional.</p><a class="text-link" href="recetas.html">Consultar recetas y macros →</a></aside>
+            <aside>
+                <section class="quick-meals panel surface" aria-labelledby="quick-meals-title"><div class="section-title-row"><div><h2 id="quick-meals-title">Acceso rápido</h2><p class="muted">Registra de nuevo una comida favorita o reciente.</p></div></div><div id="quick-meals" class="quick-meal-list"></div></section>
+                <section class="panel surface info-panel"><span class="feature-icon" aria-hidden="true">♡</span><h2>Información sin candados</h2><p>Calorías, proteínas, carbohidratos y grasas disponibles para cada receta. Los valores son aproximados y no sustituyen orientación profesional.</p><a class="text-link" href="recetas.html">Consultar recetas y macros →</a></section>
+            </aside>
         </section>
     </main>
     <footer class="footer">FITIA Student Express · Tu información se guarda en este dispositivo.</footer>
